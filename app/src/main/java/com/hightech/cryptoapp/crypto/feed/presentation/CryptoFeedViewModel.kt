@@ -11,6 +11,8 @@ import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
 import com.hightech.cryptoapp.crypto.feed.http.usecases.Connectivity
 import com.hightech.cryptoapp.crypto.feed.http.usecases.InvalidData
+import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderWithFallbackCompositeFactory
+import com.hightech.cryptoapp.main.factories.LocalCryptoFeedLoaderFactory
 import com.hightech.cryptoapp.main.factories.RemoteCryptoFeedLoaderFactory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -107,7 +109,13 @@ class CryptoFeedViewModel constructor(
         val FACTORY: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 CryptoFeedViewModel(
-                    RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+                    CryptoFeedLoaderWithFallbackCompositeFactory.createCryptoFeedLoaderWithFallbackComposite(
+                        primary = CryptoFeedLoaderWithFallbackCompositeFactory.createCryptoFeedLoaderWithFallbackComposite(
+                            primary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader(),
+                            fallback = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+                        ),
+                        fallback = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+                    )
                 )
             }
         }
