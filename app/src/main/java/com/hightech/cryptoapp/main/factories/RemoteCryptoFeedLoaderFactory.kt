@@ -7,7 +7,8 @@ class RemoteCryptoFeedLoaderFactory {
     companion object {
         fun createRemoteCryptoFeedLoader(): CryptoFeedLoader {
             return RemoteCryptoFeedLoader(
-                CryptoFeedHttpClientFactory.createCryptoFeedHttpClient()
+                CryptoFeedHttpClientFactory.createCryptoFeedHttpClient(),
+                CryptoFeedDaoFactory.createCryptoFeedDao()
             )
         }
     }
