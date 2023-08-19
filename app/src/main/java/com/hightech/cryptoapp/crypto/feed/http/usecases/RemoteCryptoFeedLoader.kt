@@ -1,7 +1,6 @@
 package com.hightech.cryptoapp.crypto.feed.http.usecases
 
 import android.util.Log
-import com.hightech.cryptoapp.crypto.feed.db.room.CryptoFeedDao
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItemsMapper
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
@@ -14,7 +13,6 @@ import kotlinx.coroutines.flow.flow
 
 class RemoteCryptoFeedLoader constructor(
     private val cryptoFeedHttpClient: CryptoFeedHttpClient,
-    private val cryptoFeedDao: CryptoFeedDao
 ):
     CryptoFeedLoader {
     override fun load(): Flow<CryptoFeedResult> = flow {
@@ -24,7 +22,6 @@ class RemoteCryptoFeedLoader constructor(
                     val cryptoFeed = result.root.data
                     if (cryptoFeed.isNotEmpty()) {
                         emit(CryptoFeedResult.Success(CryptoFeedItemsMapper.map(cryptoFeed)))
-                        cryptoFeedDao.insertAll(CryptoFeedItemsMapper.mapRemoteToEntity(cryptoFeed))
                     } else {
                         emit(CryptoFeedResult.Success(emptyList()))
                     }

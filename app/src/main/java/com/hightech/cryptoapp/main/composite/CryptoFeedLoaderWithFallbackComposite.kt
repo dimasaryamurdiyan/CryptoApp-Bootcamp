@@ -1,6 +1,5 @@
-package com.hightech.cryptoapp.crypto.feed.composite
+package com.hightech.cryptoapp.main.composite
 
-import android.util.Log
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
 import kotlinx.coroutines.flow.Flow
@@ -12,10 +11,14 @@ class CryptoFeedLoaderWithFallbackComposite(
 ): CryptoFeedLoader {
     override fun load(): Flow<CryptoFeedResult> {
         return flow {
-            try {
-                primary.load()
-            } catch (e: Exception){
-                fallback.load()
+            primary.load().collect{ result ->
+                when (result) {
+                    is CryptoFeedResult.Success -> emit(result)
+
+                    is CryptoFeedResult.Failure -> {
+                        fallback.load().collect { emit(it) }
+                    }
+                }
             }
         }
     }

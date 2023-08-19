@@ -11,6 +11,7 @@ import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
 import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
 import com.hightech.cryptoapp.crypto.feed.http.usecases.Connectivity
 import com.hightech.cryptoapp.crypto.feed.http.usecases.InvalidData
+import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderCacheDecoratorFactory
 import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderWithFallbackCompositeFactory
 import com.hightech.cryptoapp.main.factories.LocalCryptoFeedLoaderFactory
 import com.hightech.cryptoapp.main.factories.RemoteCryptoFeedLoaderFactory
@@ -110,11 +111,11 @@ class CryptoFeedViewModel constructor(
             initializer {
                 CryptoFeedViewModel(
                     CryptoFeedLoaderWithFallbackCompositeFactory.createCryptoFeedLoaderWithFallbackComposite(
-                        primary = CryptoFeedLoaderWithFallbackCompositeFactory.createCryptoFeedLoaderWithFallbackComposite(
-                            primary = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader(),
-                            fallback = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+                        primary =  CryptoFeedLoaderCacheDecoratorFactory.createCryptoFeedLoaderDecorator(
+                            decorate = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
+                            cache = LocalCryptoFeedLoaderFactory.createInsertCryptoFeed()
                         ),
-                        fallback = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader()
+                        fallback = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
                     )
                 )
             }

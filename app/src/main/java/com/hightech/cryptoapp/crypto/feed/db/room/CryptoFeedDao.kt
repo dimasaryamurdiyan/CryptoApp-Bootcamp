@@ -9,7 +9,7 @@ import com.hightech.cryptoapp.crypto.feed.db.entity.CryptoFeedEntity
 @Dao
 interface CryptoFeedDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(cryptoFeedItems: List<CryptoFeedEntity>)
+    suspend fun insertAll(vararg cryptoFeedEntity: CryptoFeedEntity)
 
     @Query("SELECT * FROM crypto_feed")
     suspend fun getAllCryptoFeedItems(): List<CryptoFeedEntity>
