@@ -77,7 +77,7 @@ dependencies {
     implementation(libs.converter.moshi)
 
     implementation(libs.room.runtime)
-//    kapt(libs.room.compiler)
+    kapt(libs.room.compiler)
     implementation(libs.room.ktx)
 
     implementation(libs.coil)
