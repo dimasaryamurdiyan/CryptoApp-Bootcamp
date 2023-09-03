@@ -1,8 +1,7 @@
-package com.hightech.cryptoapp.crypto.feed.db.usecases
+package com.singaludra.featurefeed.cache.usecases
 
-import com.hightech.cryptoapp.crypto.feed.db.entity.CryptoFeedEntity
-import com.hightech.cryptoapp.crypto.feed.db.room.CryptoFeedDao
-import com.singaludra.featurefeed.domain.CryptoFeedCache
+import com.singaludra.featurefeed.domain.CryptoFeedEntity
+import com.singaludra.featurefeed.cache.room.CryptoFeedDao
 
 
 class InsertCryptoFeedUseCase constructor(private val cryptoFeedDao: CryptoFeedDao):

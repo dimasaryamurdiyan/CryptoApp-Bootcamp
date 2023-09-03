@@ -1,10 +1,10 @@
-package com.hightech.cryptoapp.crypto.feed.db.room
+package com.singaludra.featurefeed.cache.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.hightech.cryptoapp.crypto.feed.db.entity.CryptoFeedEntity
+import com.singaludra.featurefeed.domain.CryptoFeedEntity
 
 @Dao
 interface CryptoFeedDao {

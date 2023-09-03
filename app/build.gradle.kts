@@ -50,6 +50,7 @@ android {
 
 dependencies {
     implementation(project(":feature-feed:domain"))
+    implementation(project(":feature-feed:cache"))
     implementation(libs.androidx.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)

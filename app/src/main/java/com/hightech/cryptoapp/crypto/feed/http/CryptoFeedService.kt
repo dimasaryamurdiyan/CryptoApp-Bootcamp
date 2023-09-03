@@ -1,5 +1,6 @@
 package com.hightech.cryptoapp.crypto.feed.http
 
+import com.singaludra.featurefeed.domain.RemoteRootCryptoFeed
 import retrofit2.http.GET
 import retrofit2.http.Query
 
