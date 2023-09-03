@@ -1,11 +1,11 @@
 package com.hightech.cryptoapp.main.factories
 
 import com.singaludra.featurefeed.domain.CryptoFeedLoader
-import com.hightech.cryptoapp.crypto.feed.http.usecases.RemoteCryptoFeedLoader
+import com.singaludra.featurefeed.http.usecases.RemoteCryptoFeedLoader
 
 class RemoteCryptoFeedLoaderFactory {
     companion object {
-        fun createRemoteCryptoFeedLoader(): com.singaludra.featurefeed.domain.CryptoFeedLoader {
+        fun createRemoteCryptoFeedLoader(): CryptoFeedLoader {
             return RemoteCryptoFeedLoader(
                 CryptoFeedHttpClientFactory.createCryptoFeedHttpClient(),
             )

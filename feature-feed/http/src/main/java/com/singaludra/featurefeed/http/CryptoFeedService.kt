@@ -1,4 +1,4 @@
-package com.hightech.cryptoapp.crypto.feed.http
+package com.singaludra.featurefeed.http
 
 import com.singaludra.featurefeed.domain.RemoteRootCryptoFeed
 import retrofit2.http.GET

@@ -6,15 +6,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.singaludra.featurefeed.domain.CryptoFeedItem
-import com.singaludra.featurefeed.domain.CryptoFeedLoader
-import com.singaludra.featurefeed.domain.CryptoFeedResult
-import com.hightech.cryptoapp.crypto.feed.http.usecases.Connectivity
-import com.hightech.cryptoapp.crypto.feed.http.usecases.InvalidData
 import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderCacheDecoratorFactory
 import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderWithFallbackCompositeFactory
 import com.hightech.cryptoapp.main.factories.LocalCryptoFeedLoaderFactory
 import com.hightech.cryptoapp.main.factories.RemoteCryptoFeedLoaderFactory
+import com.singaludra.featurefeed.domain.CryptoFeedItem
+import com.singaludra.featurefeed.domain.CryptoFeedLoader
+import com.singaludra.featurefeed.domain.CryptoFeedResult
+import com.singaludra.featurefeed.http.usecases.Connectivity
+import com.singaludra.featurefeed.http.usecases.InvalidData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -28,7 +28,7 @@ sealed interface CryptoFeedUiState {
 
     data class HasCryptoFeed(
         override val isLoading: Boolean,
-        val cryptoFeeds: List<com.singaludra.featurefeed.domain.CryptoFeedItem>,
+        val cryptoFeeds: List<CryptoFeedItem>,
         override val failed: String
     ) : CryptoFeedUiState
 
@@ -40,7 +40,7 @@ sealed interface CryptoFeedUiState {
 
 data class CryptoFeedViewModelState(
     val isLoading: Boolean = false,
-    val cryptoFeeds: List<com.singaludra.featurefeed.domain.CryptoFeedItem> = emptyList(),
+    val cryptoFeeds: List<CryptoFeedItem> = emptyList(),
     val failed: String = ""
 ) {
     fun toCryptoFeedUiState(): CryptoFeedUiState =
@@ -60,7 +60,7 @@ data class CryptoFeedViewModelState(
 }
 
 class CryptoFeedViewModel constructor(
-    private val cryptoFeedLoader: com.singaludra.featurefeed.domain.CryptoFeedLoader
+    private val cryptoFeedLoader: CryptoFeedLoader
 ) : ViewModel() {
     private val viewModelState = MutableStateFlow(
         CryptoFeedViewModelState(
@@ -87,12 +87,12 @@ class CryptoFeedViewModel constructor(
                 Log.d("loadCryptoFeed", "$result")
                 viewModelState.update {
                     when (result) {
-                        is com.singaludra.featurefeed.domain.CryptoFeedResult.Success -> it.copy(
+                        is CryptoFeedResult.Success -> it.copy(
                             cryptoFeeds = result.cryptoFeedItems,
                             isLoading = false
                         )
 
-                        is com.singaludra.featurefeed.domain.CryptoFeedResult.Failure -> it.copy(
+                        is CryptoFeedResult.Failure -> it.copy(
                             failed = when (result.throwable) {
                                 is Connectivity -> "Connectivity"
                                 is InvalidData -> "Invalid Data"

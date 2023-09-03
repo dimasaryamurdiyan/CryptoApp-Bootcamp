@@ -1,7 +1,7 @@
 package com.hightech.cryptoapp.main.factories
 
-import com.hightech.cryptoapp.crypto.feed.http.CryptoFeedHttpClient
-import com.hightech.cryptoapp.crypto.feed.http.CryptoFeedRetrofitHttpClient
+import com.singaludra.featurefeed.http.CryptoFeedHttpClient
+import com.singaludra.featurefeed.http.CryptoFeedRetrofitHttpClient
 
 class CryptoFeedHttpClientFactory {
     companion object {

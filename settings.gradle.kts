@@ -16,3 +16,4 @@ rootProject.name = "CryptoFeed"
 include(":app")
 include(":feature-feed:domain")
 include(":feature-feed:cache")
+include(":feature-feed:http")
