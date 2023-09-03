@@ -1,4 +1,4 @@
-package com.hightech.cryptoapp.crypto.feed.http
+package com.singaludra.featurefeed.domain
 
 import com.squareup.moshi.Json
 

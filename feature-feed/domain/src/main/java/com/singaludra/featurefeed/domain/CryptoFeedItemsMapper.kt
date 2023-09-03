@@ -1,7 +1,5 @@
 package com.singaludra.featurefeed.domain
 
-import com.hightech.cryptoapp.crypto.feed.db.entity.CryptoFeedEntity
-import com.hightech.cryptoapp.crypto.feed.http.RemoteCryptoFeedItem
 
 class CryptoFeedItemsMapper {
     companion object {

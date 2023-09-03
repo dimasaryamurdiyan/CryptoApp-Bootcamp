@@ -1,9 +1,8 @@
-package com.hightech.cryptoapp.crypto.feed.db.entity
+package com.singaludra.featurefeed.domain
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.singaludra.featurefeed.domain.CryptoFeedItem
 
 @Entity(tableName = "crypto_feed")
 data class CryptoFeedEntity(
