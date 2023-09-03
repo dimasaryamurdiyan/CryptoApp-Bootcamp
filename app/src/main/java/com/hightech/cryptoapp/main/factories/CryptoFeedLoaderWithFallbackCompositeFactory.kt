@@ -1,14 +1,14 @@
 package com.hightech.cryptoapp.main.factories
 
 import com.hightech.cryptoapp.main.composite.CryptoFeedLoaderWithFallbackComposite
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
+import com.singaludra.featurefeed.domain.CryptoFeedLoader
 
 class CryptoFeedLoaderWithFallbackCompositeFactory {
     companion object {
         fun createCryptoFeedLoaderWithFallbackComposite(
-            primary: CryptoFeedLoader,
-            fallback: CryptoFeedLoader
-        ): CryptoFeedLoader {
+            primary: com.singaludra.featurefeed.domain.CryptoFeedLoader,
+            fallback: com.singaludra.featurefeed.domain.CryptoFeedLoader
+        ): com.singaludra.featurefeed.domain.CryptoFeedLoader {
             return CryptoFeedLoaderWithFallbackComposite(
                 primary, fallback
             )

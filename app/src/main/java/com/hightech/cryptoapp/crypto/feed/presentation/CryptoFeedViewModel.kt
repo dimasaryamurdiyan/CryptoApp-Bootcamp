@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItem
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
+import com.singaludra.featurefeed.domain.CryptoFeedItem
+import com.singaludra.featurefeed.domain.CryptoFeedLoader
+import com.singaludra.featurefeed.domain.CryptoFeedResult
 import com.hightech.cryptoapp.crypto.feed.http.usecases.Connectivity
 import com.hightech.cryptoapp.crypto.feed.http.usecases.InvalidData
 import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderCacheDecoratorFactory
@@ -28,7 +28,7 @@ sealed interface CryptoFeedUiState {
 
     data class HasCryptoFeed(
         override val isLoading: Boolean,
-        val cryptoFeeds: List<CryptoFeedItem>,
+        val cryptoFeeds: List<com.singaludra.featurefeed.domain.CryptoFeedItem>,
         override val failed: String
     ) : CryptoFeedUiState
 
@@ -40,7 +40,7 @@ sealed interface CryptoFeedUiState {
 
 data class CryptoFeedViewModelState(
     val isLoading: Boolean = false,
-    val cryptoFeeds: List<CryptoFeedItem> = emptyList(),
+    val cryptoFeeds: List<com.singaludra.featurefeed.domain.CryptoFeedItem> = emptyList(),
     val failed: String = ""
 ) {
     fun toCryptoFeedUiState(): CryptoFeedUiState =
@@ -60,7 +60,7 @@ data class CryptoFeedViewModelState(
 }
 
 class CryptoFeedViewModel constructor(
-    private val cryptoFeedLoader: CryptoFeedLoader
+    private val cryptoFeedLoader: com.singaludra.featurefeed.domain.CryptoFeedLoader
 ) : ViewModel() {
     private val viewModelState = MutableStateFlow(
         CryptoFeedViewModelState(
@@ -87,12 +87,12 @@ class CryptoFeedViewModel constructor(
                 Log.d("loadCryptoFeed", "$result")
                 viewModelState.update {
                     when (result) {
-                        is CryptoFeedResult.Success -> it.copy(
+                        is com.singaludra.featurefeed.domain.CryptoFeedResult.Success -> it.copy(
                             cryptoFeeds = result.cryptoFeedItems,
                             isLoading = false
                         )
 
-                        is CryptoFeedResult.Failure -> it.copy(
+                        is com.singaludra.featurefeed.domain.CryptoFeedResult.Failure -> it.copy(
                             failed = when (result.throwable) {
                                 is Connectivity -> "Connectivity"
                                 is InvalidData -> "Invalid Data"

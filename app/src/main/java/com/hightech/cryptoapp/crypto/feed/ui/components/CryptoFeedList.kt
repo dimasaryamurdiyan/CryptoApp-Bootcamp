@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -25,14 +24,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItem
+import com.singaludra.featurefeed.domain.CryptoFeedItem
 
 @Composable
 fun CryptoFeedList(
     modifier: Modifier = Modifier,
     contentModifier: Modifier,
-    items: List<CryptoFeedItem>,
-    onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
+    items: List<com.singaludra.featurefeed.domain.CryptoFeedItem>,
+    onNavigateToCryptoDetails: (com.singaludra.featurefeed.domain.CryptoFeedItem) -> Unit
 ) {
     Column(
         modifier = contentModifier

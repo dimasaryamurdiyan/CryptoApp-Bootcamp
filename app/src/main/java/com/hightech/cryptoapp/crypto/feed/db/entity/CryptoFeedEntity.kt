@@ -3,7 +3,7 @@ package com.hightech.cryptoapp.crypto.feed.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItem
+import com.singaludra.featurefeed.domain.CryptoFeedItem
 
 @Entity(tableName = "crypto_feed")
 data class CryptoFeedEntity(
@@ -22,7 +22,7 @@ data class CryptoFeedEntity(
     val changePctDay: Float
 ){
     companion object{
-        fun List<CryptoFeedItem>.fromDomain(): List<CryptoFeedEntity> {
+        fun List<com.singaludra.featurefeed.domain.CryptoFeedItem>.fromDomain(): List<CryptoFeedEntity> {
             return this.map {
                 CryptoFeedEntity(
                     id = it.coinInfo.id,

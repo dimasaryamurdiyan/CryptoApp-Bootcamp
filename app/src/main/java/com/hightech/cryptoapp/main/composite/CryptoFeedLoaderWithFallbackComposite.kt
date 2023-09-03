@@ -1,21 +1,21 @@
 package com.hightech.cryptoapp.main.composite
 
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedLoader
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedResult
+import com.singaludra.featurefeed.domain.CryptoFeedLoader
+import com.singaludra.featurefeed.domain.CryptoFeedResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class CryptoFeedLoaderWithFallbackComposite(
-    private val primary: CryptoFeedLoader,
-    private val fallback: CryptoFeedLoader,
-): CryptoFeedLoader {
-    override fun load(): Flow<CryptoFeedResult> {
+    private val primary: com.singaludra.featurefeed.domain.CryptoFeedLoader,
+    private val fallback: com.singaludra.featurefeed.domain.CryptoFeedLoader,
+): com.singaludra.featurefeed.domain.CryptoFeedLoader {
+    override fun load(): Flow<com.singaludra.featurefeed.domain.CryptoFeedResult> {
         return flow {
             primary.load().collect{ result ->
                 when (result) {
-                    is CryptoFeedResult.Success -> emit(result)
+                    is com.singaludra.featurefeed.domain.CryptoFeedResult.Success -> emit(result)
 
-                    is CryptoFeedResult.Failure -> {
+                    is com.singaludra.featurefeed.domain.CryptoFeedResult.Failure -> {
                         fallback.load().collect { emit(it) }
                     }
                 }

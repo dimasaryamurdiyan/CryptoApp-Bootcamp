@@ -7,12 +7,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.hightech.cryptoapp.crypto.details.CryptoDetailsRoute
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItem
+import com.singaludra.featurefeed.domain.CryptoFeedItem
 
 internal const val nameArg = "name"
 const val cryptoDetailsRoute = "crypto_details_route/{$nameArg}"
 
-fun NavController.navigateToCryptoDetails(name: CryptoFeedItem, navOptions: NavOptions? = null) {
+fun NavController.navigateToCryptoDetails(name: com.singaludra.featurefeed.domain.CryptoFeedItem, navOptions: NavOptions? = null) {
     this.navigate("$cryptoDetailsRoute/${name.coinInfo.name}", navOptions)
 }
 

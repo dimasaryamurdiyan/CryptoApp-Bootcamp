@@ -1,4 +1,4 @@
-package com.hightech.cryptoapp.crypto.feed.domain
+package com.singaludra.featurefeed.domain
 
 import kotlinx.coroutines.flow.Flow
 

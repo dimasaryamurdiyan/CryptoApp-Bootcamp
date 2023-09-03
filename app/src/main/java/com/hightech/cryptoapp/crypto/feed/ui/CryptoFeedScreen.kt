@@ -22,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.hightech.cryptoapp.crypto.feed.domain.CryptoFeedItem
+import com.singaludra.featurefeed.domain.CryptoFeedItem
 import com.hightech.cryptoapp.crypto.feed.presentation.CryptoFeedUiState
 import com.hightech.cryptoapp.crypto.feed.presentation.CryptoFeedViewModel
 import com.hightech.cryptoapp.crypto.feed.ui.components.CryptoFeedList
@@ -31,7 +31,7 @@ import com.hightech.cryptoapp.theme.Purple40
 @Composable
 fun CryptoFeedRoute(
     viewModel: CryptoFeedViewModel = viewModel(factory = CryptoFeedViewModel.FACTORY),
-    onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
+    onNavigateToCryptoDetails: (com.singaludra.featurefeed.domain.CryptoFeedItem) -> Unit
 ) {
     val cryptoFeedUiState by viewModel.cryptoFeedUiState.collectAsStateWithLifecycle()
 
@@ -50,7 +50,7 @@ fun CryptoFeedScreen(
     modifier: Modifier = Modifier,
     cryptoFeedUiState: CryptoFeedUiState,
     onRefreshCryptoFeed: () -> Unit,
-    onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
+    onNavigateToCryptoDetails: (com.singaludra.featurefeed.domain.CryptoFeedItem) -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = cryptoFeedUiState.isLoading,
