@@ -52,6 +52,7 @@ dependencies {
     implementation(project(":feature-feed:domain"))
     implementation(project(":feature-feed:cache"))
     implementation(project(":feature-feed:http"))
+    implementation(project(":feature-feed:presentation"))
     implementation(libs.androidx.ktx)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.activity.compose)

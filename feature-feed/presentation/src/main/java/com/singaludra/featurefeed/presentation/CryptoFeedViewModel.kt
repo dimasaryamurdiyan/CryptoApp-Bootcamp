@@ -1,15 +1,8 @@
-package com.hightech.cryptoapp.crypto.feed.presentation
+package com.singaludra.featurefeed.presentation
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderCacheDecoratorFactory
-import com.hightech.cryptoapp.main.factories.CryptoFeedLoaderWithFallbackCompositeFactory
-import com.hightech.cryptoapp.main.factories.LocalCryptoFeedLoaderFactory
-import com.hightech.cryptoapp.main.factories.RemoteCryptoFeedLoaderFactory
 import com.singaludra.featurefeed.domain.CryptoFeedItem
 import com.singaludra.featurefeed.domain.CryptoFeedLoader
 import com.singaludra.featurefeed.domain.CryptoFeedResult
@@ -106,19 +99,4 @@ class CryptoFeedViewModel constructor(
         }
     }
 
-    companion object {
-        val FACTORY: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                CryptoFeedViewModel(
-                    CryptoFeedLoaderWithFallbackCompositeFactory.createCryptoFeedLoaderWithFallbackComposite(
-                        primary =  CryptoFeedLoaderCacheDecoratorFactory.createCryptoFeedLoaderDecorator(
-                            decorate = RemoteCryptoFeedLoaderFactory.createRemoteCryptoFeedLoader(),
-                            cache = LocalCryptoFeedLoaderFactory.createInsertCryptoFeed()
-                        ),
-                        fallback = LocalCryptoFeedLoaderFactory.createLocalCryptoFeedLoader()
-                    )
-                )
-            }
-        }
-    }
 }

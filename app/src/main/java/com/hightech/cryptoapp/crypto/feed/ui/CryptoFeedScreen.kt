@@ -23,15 +23,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.singaludra.featurefeed.domain.CryptoFeedItem
-import com.hightech.cryptoapp.crypto.feed.presentation.CryptoFeedUiState
-import com.hightech.cryptoapp.crypto.feed.presentation.CryptoFeedViewModel
+import com.singaludra.featurefeed.presentation.CryptoFeedUiState
+import com.singaludra.featurefeed.presentation.CryptoFeedViewModel
 import com.hightech.cryptoapp.crypto.feed.ui.components.CryptoFeedList
+import com.hightech.cryptoapp.main.factories.viewmodel.CryptoFeedViewModelFactory
 import com.hightech.cryptoapp.theme.Purple40
 
 @Composable
 fun CryptoFeedRoute(
-    viewModel: CryptoFeedViewModel = viewModel(factory = CryptoFeedViewModel.FACTORY),
-    onNavigateToCryptoDetails: (com.singaludra.featurefeed.domain.CryptoFeedItem) -> Unit
+    viewModel: com.singaludra.featurefeed.presentation.CryptoFeedViewModel = viewModel(factory = CryptoFeedViewModelFactory.FACTORY),
+    onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
 ) {
     val cryptoFeedUiState by viewModel.cryptoFeedUiState.collectAsStateWithLifecycle()
 
@@ -48,9 +49,9 @@ fun CryptoFeedRoute(
 @Composable
 fun CryptoFeedScreen(
     modifier: Modifier = Modifier,
-    cryptoFeedUiState: CryptoFeedUiState,
+    cryptoFeedUiState: com.singaludra.featurefeed.presentation.CryptoFeedUiState,
     onRefreshCryptoFeed: () -> Unit,
-    onNavigateToCryptoDetails: (com.singaludra.featurefeed.domain.CryptoFeedItem) -> Unit
+    onNavigateToCryptoDetails: (CryptoFeedItem) -> Unit
 ) {
     val pullRefreshState = rememberPullRefreshState(
         refreshing = cryptoFeedUiState.isLoading,
@@ -80,8 +81,8 @@ fun CryptoFeedScreen(
             pullRefreshState = pullRefreshState,
             loading = cryptoFeedUiState.isLoading,
             empty = when (cryptoFeedUiState) {
-                is CryptoFeedUiState.HasCryptoFeed -> false
-                is CryptoFeedUiState.NoCryptoFeed -> cryptoFeedUiState.isLoading
+                is com.singaludra.featurefeed.presentation.CryptoFeedUiState.HasCryptoFeed -> false
+                is com.singaludra.featurefeed.presentation.CryptoFeedUiState.NoCryptoFeed -> cryptoFeedUiState.isLoading
             },
             emptyContent = {
                 Box(
@@ -98,7 +99,7 @@ fun CryptoFeedScreen(
             },
             content = {
                 when (cryptoFeedUiState) {
-                    is CryptoFeedUiState.HasCryptoFeed -> {
+                    is com.singaludra.featurefeed.presentation.CryptoFeedUiState.HasCryptoFeed -> {
                         CryptoFeedList(
                             contentModifier = contentModifier,
                             items = cryptoFeedUiState.cryptoFeeds,
@@ -106,7 +107,7 @@ fun CryptoFeedScreen(
                         )
                     }
 
-                    is CryptoFeedUiState.NoCryptoFeed -> {
+                    is com.singaludra.featurefeed.presentation.CryptoFeedUiState.NoCryptoFeed -> {
                         if (cryptoFeedUiState.failed.isEmpty()) {
                             Box(
                                 modifier = modifier
